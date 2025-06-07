@@ -21,7 +21,7 @@ export default function Technology(){
                 compatibility: "Cross-browser support",
             },
             techStack: [
-                { name: "React", category: "Framework" },
+                { name: "Captcha", category: "Security" },
                 { name: "Next.js", category: "Meta Framework" },
                 { name: "TypeScript", category: "Language" },
                 { name: "Shadcn", category: "Styling" },
@@ -52,7 +52,7 @@ export default function Technology(){
                     { name: "OpenAPI", category: "API Specification" },
                     { name: "Redis", category: "Caching & Data Store" },
                     { name: "GraphQL", category: "API Query Language" },
-                    { name: "Docker", category: "Containerization" }
+                    { name: "Workers", category: "Scheduling" }
             ],
         },
         {
