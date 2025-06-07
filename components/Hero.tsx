@@ -50,8 +50,9 @@ const HeroSection = () => {
                         </Button>
                         <Button
                             variant="outline"
+                            onClick={()=>router.push("/Book")}
                             size="lg"
-                            className="text-lg px-10 py-4 rounded-full border-purple-500/50 text-purple-300 hover:bg-purple-950/50 hover:border-purple-400 backdrop-blur-sm transition-all duration-300"
+                            className="text-lg px-10 py-4 rounded-full border-purple-500/50 text-purple-800 hover:bg-purple-950/50 hover:border-purple-400 hover:text-white backdrop-blur-sm transition-all duration-300"
                         >
                             Book a Slot
                         </Button>
