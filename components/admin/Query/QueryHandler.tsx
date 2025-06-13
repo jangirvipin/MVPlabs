@@ -57,7 +57,9 @@ function QueryHandler({ data }: { data: Query }) {
 
     const handleSolved=async (id:string)=>{
         try {
-            const response = await axios.patch(`http://localhost:3000/api/${id}`,{
+            const url = process.env.NEXT_PUBLIC_API_URL;
+            const api = url+'/api'
+            const response = await axios.patch(`${api}/${id}`,{
                 isSolved:true
             })
             const result = response.data;
@@ -74,7 +76,9 @@ function QueryHandler({ data }: { data: Query }) {
 
     const handleDelete=async (id:string)=>{
         try {
-            const response = await axios.delete(`http://localhost:3000/api/${id}`)
+            const url = process.env.NEXT_PUBLIC_API_URL;
+            const api = url+'/api'
+            const response = await axios.delete(`${api}/${id}`)
             const result = response.data;
             if (result.success) {
                 router.push("/admin")
