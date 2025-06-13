@@ -1,0 +1,32 @@
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Queries{
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  company   String?
+  message   String
+  isSolved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Book{
+  id        String   @id @default(cuid())
+  email     String
+  link      String?
+  message   String
+  goal      String
+  budget    String
+  meeting   String
+  isBooked  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

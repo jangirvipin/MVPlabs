@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next"
+import { Toaster } from 'sonner'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +31,25 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+      <Toaster
+          theme="dark"
+          className="toaster-purple"
+          position="top-right"
+          toastOptions={{
+              style: {
+                  background: "rgba(88, 28, 135, 0.15)",
+                  backdropFilter: "blur(8px)",
+                  border: "1px solid rgba(147, 51, 234, 0.3)",
+                  color: "rgb(216, 180, 254)",
+                  fontWeight: "500",
+                  marginTop: "2.5rem",
+              },
+              actionButtonStyle: {
+                  backgroundColor: "rgb(147, 51, 234)",
+                  color: "white",
+              },
+          }}
+      />
       <Navbar />
         {children}
       <Analytics />
