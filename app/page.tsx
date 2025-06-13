@@ -3,6 +3,9 @@ import HeroSection from "@/components/Hero";
 import WorkSection from "@/components/Work";
 import ContactSection from "@/components/Contact";
 import FAQSection from "@/components/F&Q";
+import PricingSection from "@/components/Pricing";
+
+
 
 const App = () => {
   return (
@@ -10,6 +13,7 @@ const App = () => {
         <HeroSection />
         <WorkSection />
         <ContactSection />
+          <PricingSection />
         <FAQSection />
       </div>
   );

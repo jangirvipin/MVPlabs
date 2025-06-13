@@ -20,24 +20,45 @@ import {
     Users,
     Rocket,
 } from "lucide-react"
+import axios from "axios";
+import { toast } from "sonner"
+
 
 export default function MVPBookingHero() {
     const [formData, setFormData] = useState({
         email: "",
-        mvpLink: "",
-        description: "",
-        userWants: "",
-        estimatedCost: "",
-        meetingTime: "",
+        link: "",
+        message: "",
+        goal: "",
+        budget: "",
+        meeting: "",
     })
 
     const [isSubmitted, setIsSubmitted] = useState(false)
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault()
-        console.log("Booking submitted:", formData)
-        setIsSubmitted(true)
-        // Handle form submission here
+        console.log(formData)
+        try{
+            const response = await axios.post("http://localhost:3000/api/book",formData,{
+                headers:{
+                    "Content-Type": "application/json",
+                }
+            });
+            const result= response.data;
+            if(result.success){
+                toast.success("Booking Confirmed", {
+                    description: "Your Booking has been confirmed.",
+                })
+                setIsSubmitted(true)
+            }
+        }catch (e:any){
+            if(e.response){
+                toast.error("Something went wrong")
+            }else{
+                toast.error("Something went wrong")
+            }
+        }
     }
 
     const handleInputChange = (field: string, value: string) => {
@@ -164,31 +185,30 @@ export default function MVPBookingHero() {
 
                             {/* MVP Link Field */}
                             <div className="space-y-2">
-                                <Label htmlFor="mvpLink" className="text-white flex items-center gap-2 text-sm">
+                                <Label htmlFor="link" className="text-white flex items-center gap-2 text-sm">
                                     <Link className="w-4 h-4" />
                                     MVP Demo Link (Optional)
                                 </Label>
                                 <Input
-                                    id="mvpLink"
-                                    type="url"
+                                    id="link"
                                     placeholder="https://your-mvp.com"
-                                    value={formData.mvpLink}
-                                    onChange={(e) => handleInputChange("mvpLink", e.target.value)}
+                                    value={formData.link}
+                                    onChange={(e) => handleInputChange("link", e.target.value)}
                                     className="bg-black/20 border-purple-500/30 text-white placeholder:text-purple-300/60 focus:border-purple-400 focus:ring-purple-400/20"
                                 />
                             </div>
 
                             {/* Description Field */}
                             <div className="space-y-2">
-                                <Label htmlFor="description" className="text-white flex items-center gap-2 text-sm">
+                                <Label htmlFor="message" className="text-white flex items-center gap-2 text-sm">
                                     <MessageSquare className="w-4 h-4" />
                                     Tell Us About Your MVP
                                 </Label>
                                 <Textarea
-                                    id="description"
+                                    id="message"
                                     placeholder="Describe your MVP, current challenges, and what you want to achieve..."
-                                    value={formData.description}
-                                    onChange={(e) => handleInputChange("description", e.target.value)}
+                                    value={formData.message}
+                                    onChange={(e) => handleInputChange("message", e.target.value)}
                                     className="bg-black/20 border-purple-500/30 text-white placeholder:text-purple-300/60 focus:border-purple-400 focus:ring-purple-400/20 min-h-[80px] resize-none"
                                     required
                                 />
@@ -199,16 +219,14 @@ export default function MVPBookingHero() {
                                 {/* What User Wants Field */}
                                 <div className="space-y-2">
                                     <Label className="text-white text-sm">Primary Goal</Label>
-                                    <Select onValueChange={(value) => handleInputChange("userWants", value)}>
+                                    <Select onValueChange={(value) => handleInputChange("goal", value)}>
                                         <SelectTrigger className="bg-black/20 border-purple-500/30 text-white">
                                             <SelectValue placeholder="Select goal" />
                                         </SelectTrigger>
                                         <SelectContent>
                                             <SelectItem value="mvp-development">MVP Development</SelectItem>
-                                            <SelectItem value="technical-consultation">Tech Consultation</SelectItem>
-                                            <SelectItem value="scaling-advice">Scaling Strategy</SelectItem>
-                                            <SelectItem value="code-review">Code Review</SelectItem>
-                                            <SelectItem value="other">Other</SelectItem>
+                                            <SelectItem value="mvp-scaling">MVP Scaling </SelectItem>
+                                            <SelectItem value="enterprise-scaling">Enterprise Scaling</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
@@ -219,7 +237,7 @@ export default function MVPBookingHero() {
                                         <DollarSign className="w-4 h-4" />
                                         Budget Range
                                     </Label>
-                                    <Select onValueChange={(value) => handleInputChange("estimatedCost", value)}>
+                                    <Select onValueChange={(value) => handleInputChange("budget", value)}>
                                         <SelectTrigger className="bg-black/20 border-purple-500/30 text-white">
                                             <SelectValue placeholder="Select budget" />
                                         </SelectTrigger>
@@ -241,7 +259,7 @@ export default function MVPBookingHero() {
                                     <Clock className="w-4 h-4" />
                                     Preferred Meeting Time
                                 </Label>
-                                <Select onValueChange={(value) => handleInputChange("meetingTime", value)}>
+                                <Select onValueChange={(value) => handleInputChange("meeting", value)}>
                                     <SelectTrigger className="bg-black/20 border-purple-500/30 text-white">
                                         <SelectValue placeholder="When works best for you?" />
                                     </SelectTrigger>

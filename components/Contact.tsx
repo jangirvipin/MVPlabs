@@ -8,6 +8,9 @@ import { ArrowRight, CheckCircle, Mail, Phone, MapPin, Sparkles } from "lucide-r
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
+import axios from "axios";
+import { toast } from "sonner"
+
 
 const ContactSection = () => {
     const [formData, setFormData] = useState({
@@ -24,10 +27,28 @@ const ContactSection = () => {
         })
     }
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault()
-        console.log("Form submitted:", formData)
-        // Handle form submission logic here
+        try{
+            const response = await axios.post("http://localhost:3000/api",formData,{
+                headers:{
+                    "Content-Type": "application/json",
+                }
+            });
+            const result= response.data;
+            if(result.success){
+                toast.success("Message Sent", {
+                    description: "Your message has been sent successfully",
+                })
+            }
+
+        }catch (e:any){
+            if(e.response){
+                toast.error("Something went wrong")
+            }else{
+                toast.error("Something went wrong")
+            }
+        }
     }
 
     const contactInfo = [
