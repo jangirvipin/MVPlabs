@@ -50,7 +50,9 @@ function BookHandler({ data }: { data: Booking }) {
 
     const handleBooking=async (id:string)=>{
         try {
-            const response = await axios.patch(`http://localhost:3000/api/book/${id}`,{
+            const url = process.env.NEXT_PUBLIC_API_URL;
+            const api = url+'/api/book'
+            const response = await axios.patch(`${api}/${id}`,{
                 isBooked:true
             })
             const result = response.data;
@@ -66,7 +68,9 @@ function BookHandler({ data }: { data: Booking }) {
 
     const handleDelete=async (id:string)=>{
         try {
-            const response = await axios.delete(`http://localhost:3000/api/book/${id}`)
+            const url = process.env.NEXT_PUBLIC_API_URL;
+            const api = url+'/api/book'
+            const response = await axios.delete(`${api}/${id}`)
             const result = response.data;
             if (result.success) {
                 router.push("/admin/book")

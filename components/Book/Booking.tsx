@@ -40,7 +40,9 @@ export default function MVPBookingHero() {
         e.preventDefault()
         console.log(formData)
         try{
-            const response = await axios.post("http://localhost:3000/api/book",formData,{
+            const url = process.env.NEXT_PUBLIC_API_URL;
+            const api = url+'/api/book'
+            const response = await axios.post(api,formData,{
                 headers:{
                     "Content-Type": "application/json",
                 }

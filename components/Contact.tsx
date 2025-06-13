@@ -30,7 +30,9 @@ const ContactSection = () => {
     const handleSubmit = async (e: any) => {
         e.preventDefault()
         try{
-            const response = await axios.post("http://localhost:3000/api",formData,{
+            const url = process.env.NEXT_PUBLIC_API_URL;
+            const api = url+'/api'
+            const response = await axios.post(api,formData,{
                 headers:{
                     "Content-Type": "application/json",
                 }
